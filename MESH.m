@@ -11,9 +11,7 @@ function [x y]=MESH(X, Y, rN, cN)
   parfor i=1:cN+1
     x = [x linspace(xx(1, i), xx(2, i), rN+1)'];
     y = [y linspace(yy(1, i), yy(2, i), rN+1)'];
-    fprintf('.');
   end
-  fprintf('\n');
   x = reshape(x',1,nN);
   y = reshape(y',1,nN);
 end

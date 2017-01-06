@@ -11,7 +11,5 @@ function f=Fg()
     lNod = [1:4];
     lNod = [2*lNod-1 2*lNod];
     f(gNod) = f(gNod) + F(lNod);
-    fprintf('.');
   end
-  fprintf('\n');
 end

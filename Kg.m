@@ -13,8 +13,6 @@ function k=Kg(rN, cN)
       lNod = [1:4];
       lNod = [2*lNod-1 2*lNod];
       k(gNod, gNod) = k(gNod, gNod) + ke(lNod, lNod);
-      fprintf('.');
     end
   end
-  fprintf('\n');
 end

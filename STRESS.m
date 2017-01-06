@@ -1,9 +1,13 @@
 % Stress
 function [s gp]=STRESS(res)
-  global rN cN nN D X Y;
+  global rN cN nN D X Y gpu;
   g = [ -1/sqrt(3) 1/sqrt(3) ];
   s = zeros(rN, cN, 4, 3);
   gp = zeros(rN, cN, 4, 2);
+  if gpu
+      s = gpuArray(s);
+      gp = gpuArray(gp);
+  end
   for i=1:rN
     for j=1:cN
       g1 = (i-1)*(cN+1)+j;
