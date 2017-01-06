@@ -49,11 +49,15 @@ for i=1:rN
 end
 d;
 
-gK = gpuArray(K);
-gF = gpuArray(F);
-gd = gpuArray(d);
+if gpu
+    gK = gpuArray(K);
+    gF = gpuArray(F);
+    gd = gpuArray(d);
+    res = SOLVE(gK, gF, gd);
+else
+    res = SOLVE(K, F, d);
+end
 
-res = SOLVE(gK, gF, gd);
 [s gp] = STRESS(res);
 s = reshape(s,cN*rN*4,3);
 gp = reshape(gp,cN*rN*4,2);
