@@ -10,13 +10,13 @@ dvector = true;
 % gpu support
 gpu = false;
 
-rN = 25;              % Number of mesh row
-cN = 50;              % Number of mesh coloum
+rN = 10;              % Number of mesh row
+cN = 20;              % Number of mesh coloum
 nN = (rN+1)*(cN+1);   % Number of node
 
-a = 10;
+a = 0;
 X = [0 0 2 2];
-Y = [2*a 0 a 2*a];
+Y = [1 0 a 1];
 
 [X Y] = MESH(X, Y, rN, cN);
 
@@ -58,7 +58,20 @@ else
     res = SOLVE(K, F, d);
 end
 
-[s gp] = STRESS(res);
+[ss bp] = STRESS_BOUNDARY(res);
+bbp = bp;
+for i=1:c
+ss = reshape(ss,cN*21,3);
+bp = reshape(bp,cN*21,2);
+figure;
+subplot(1,3,1);
+plot(bp(:,1), ss(:,1));
+subplot(1,3,2);
+plot(bp(:,1), ss(:,2));
+subplot(1,3,3);
+plot(bp(:,1), ss(:,3));
+
+[s gp] = STRESS_GP(res);
 s = reshape(s,cN*rN*4,3);
 gp = reshape(gp,cN*rN*4,2);
 

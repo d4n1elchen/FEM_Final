@@ -10,8 +10,8 @@ dvector = true;
 % gpu support
 gpu = false;
 
-rN = 25;              % Number of mesh row
-cN = 50;              % Number of mesh coloum
+rN = 20;              % Number of mesh row
+cN = 40;              % Number of mesh coloum
 nN = (rN+1)*(cN+1);   % Number of node
 
 a = 0;
@@ -58,9 +58,44 @@ else
     res = SOLVE(K, F, d);
 end
 
-[s gp] = STRESS(res);
-s = reshape(s,cN*rN*4,3);
-gp = reshape(gp,cN*rN*4,2);
+[ss bp] = STRESS_BOUNDARY(res);
+bbp = bp;
+sss = ss;
+bp = [];
+ss = [];
+for i=1:cN
+  tp = bbp(1,i,:,1);
+  ts = sss(1,i,:,:);
+  bp = [bp; tp(:)];
+  ss = [ss; reshape(ts,21,3)];
+end
+%{
+figure;
+plot(bp(:,1), ss(:,1));
+title('\sigma_x');
+figure;
+plot(bp(:,1), ss(:,3));
+title('\tau');
+%}
+figure;
+plot(bp(:,1), ss(:,2));
+title('\sigma_y');
+xlabel('y(m)');
+ylabel('\sigma(Pa)');
+
+[s gp] = STRESS_GP(res);
+ggp = gp;
+ss = s;
+gp = [];
+s = [];
+for i=1:rN
+  for j=1:cN
+    tp = ggp(i,j,:,:);
+    ts = ss(i,j,:,:);
+    gp = [gp; reshape(tp,4,2)];
+    s = [s; reshape(ts,4,3)];
+  end
+end
 
 r=reshape(res,(cN+1)*2,(rN+1))';
 x=r(:,[1:2:end]);
