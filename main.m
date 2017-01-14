@@ -14,7 +14,7 @@ rN = 20;              % Number of mesh row
 cN = 40;              % Number of mesh coloum
 nN = (rN+1)*(cN+1);   % Number of node
 
-a = 0;
+a = 0.5;
 X = [0 0 2 2];
 Y = [1 0 a 1];
 
