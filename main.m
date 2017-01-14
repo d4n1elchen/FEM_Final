@@ -8,15 +8,15 @@ mesh = false;
 dvector = true;
 
 % gpu support
-gpu = true;
+gpu = false;
 
-rN = 30;              % Number of mesh row
-cN = 40;              % Number of mesh coloum
+rN = 25;              % Number of mesh row
+cN = 50;              % Number of mesh coloum
 nN = (rN+1)*(cN+1);   % Number of node
 
-a = 0.5;
-X = [0 0 2   2];
-Y = [1 0 0.5 1];
+a = 0;
+X = [0 0 2 2];
+Y = [1 0 a 1];
 
 [X Y] = MESH(X, Y, rN, cN);
 
@@ -85,6 +85,8 @@ end
 if dvector
   quiver(X,Y,x,y);
 end
+title('Displacement');
+colorbar;
 hold off;
 
 subplot(2,2,2);
@@ -101,6 +103,8 @@ end
 if dvector
   quiver(X,Y,x,y);
 end
+title('\sigma_x');
+colorbar;
 hold off;
 
 subplot(2,2,3);
@@ -117,6 +121,8 @@ end
 if dvector
   quiver(X,Y,x,y);
 end
+title('\sigma_y');
+colorbar;
 hold off;
 
 subplot(2,2,4);
@@ -133,4 +139,6 @@ end
 if dvector
   quiver(X,Y,x,y);
 end
+title('\tau_{xy}');
+colorbar;
 hold off;
